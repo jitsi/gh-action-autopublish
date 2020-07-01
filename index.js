@@ -11,7 +11,7 @@ Toolkit.run(async tools => {
     }
 
     const npmrc = path.resolve(process.env['RUNNER_TEMP'] || process.cwd(), '.npmrc');
-    fs.writeFileSync(npmrc, `//registry.npmjs.org/:_authToken=${process.env.NPM_AUTH_TOKEN}`);
+    fs.writeFileSync(npmrc, `//registry.npmjs.org/:_authToken=${process.env.NPM_AUTH_TOKEN}`, { flag: 'w+' });
 
     await tools.exec('git', ['config', 'user.name', '"Automated Release"']);
     await tools.exec('git', ['config', 'user.email', '"gh-action-autopublish@users.noreply.github.com"']);
