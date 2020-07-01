@@ -32,7 +32,7 @@ Toolkit.run(async tools => {
     }
 
     await tools.exec('git push origin master');
-    await tools.exec(`git push origin v${getVersion}`);
+    await tools.exec(`git push origin v${getVersion()}`);
     await tools.exec('npm publish --access public');
 
     tools.exit.success('Done!!')
