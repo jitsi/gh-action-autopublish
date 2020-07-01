@@ -12,12 +12,13 @@ Toolkit.run(async tools => {
         listeners: {
             stdout: buffer => {
                 currentTag += buffer.toString()
-            }
+            },
+            stderr: () => {}
         }
     };
 
     try {
-        await tools.exec('git describe --tags', options).toString();
+        await tools.exec('git', ['describe',  '--tags'], options);
     } catch (e) {
         currentTag = undefined;
     }
