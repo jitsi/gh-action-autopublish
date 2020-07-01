@@ -33,7 +33,7 @@ Toolkit.run(async tools => {
 
     await tools.exec('git push origin master');
     await tools.exec(`git push origin v${getVersion()}`);
-    await tools.exec('npm publish --access public');
+    await tools.exec('npm', ['publish'], { env: { NPM_AUTH_TOKEN: process.env.NPM_AUTH_TOKEN } });
 
     tools.exit.success('Done!!')
 }, { event: 'push' });
