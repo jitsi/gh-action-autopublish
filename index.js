@@ -17,7 +17,7 @@ Toolkit.run(async tools => {
     };
 
     try {
-        await tools.exec('git describe --tags').toString();
+        await tools.exec('git describe --tags', options).toString();
     } catch (e) {
         currentTag = undefined;
     }
