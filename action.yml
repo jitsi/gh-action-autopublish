@@ -1,0 +1,8 @@
+name: AutoPublish
+description: Automated version bump and publishing for npm packages
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: truck
+  color: blue

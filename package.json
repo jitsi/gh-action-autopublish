@@ -1,0 +1,17 @@
+{
+  "name": "gh-action-autopublish",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saghul/gh-action-autopublish.git"
+  },
+  "license": "ISC",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "actions-toolkit": "5.0.0"
+  }
+}
