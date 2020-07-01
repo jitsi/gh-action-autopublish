@@ -16,7 +16,11 @@ Toolkit.run(async tools => {
         }
     };
 
-    await tools.exec('git describe --tags').toString();
+    try {
+        await tools.exec('git describe --tags').toString();
+    } catch (e) {
+        currentTag = undefined;
+    }
 
     if (currentTag && currentTag === `v${currentVersion}`) {
         tools.log.info('Latest tag matches version, bumping the patch');
