@@ -7,28 +7,21 @@ Toolkit.run(async tools => {
 
     const pkg = tools.getPackageJSON();
     const currentVersion = pkg.version.toString();
-    let currentTag;
-    const options = {
-        listeners: {
-            stdout: buffer => {
-                currentTag += buffer.toString()
-            },
-            stderr: () => {}
-        }
-    };
+    let tagExists;
 
     try {
-        await tools.exec('git', ['describe',  '--tags'], options);
+        await tools.exec(`git ls-remote --exit-code --tags origin v${currentVersion}`);
+        tagExists = true;
     } catch (e) {
-        currentTag = undefined;
+        tagExists = false;
     }
 
-    if (currentTag && currentTag === `v${currentVersion}`) {
-        tools.log.info('Latest tag matches version, bumping the patch');
+    if (tagExists) {
+        tools.log.info('Current version has a tag, bumping the patch');
         await tools.exec('npm version patch');
     } else {
-        tools.log.info('Latest tag doesn\'t match the version, setting it');
-        await tools.exec(`npm version ${currentVersion} --allow-same-version`);
+        tools.log.info(`Current version does not have a tag, creating it`);
+        await tools.exec(`git tag v${currentVersion}`);
     }
 
     await tools.exec('git push origin master');
