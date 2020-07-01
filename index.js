@@ -1,6 +1,6 @@
 const { Toolkit } = require('actions-toolkit');
-import fs from 'fs';
-import path from 'path'
+const fs = require('fs');
+const path = require('path');
 
 
 Toolkit.run(async tools => {
