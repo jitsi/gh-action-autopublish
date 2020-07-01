@@ -10,7 +10,7 @@ Toolkit.run(async tools => {
         return JSON.parse(data.toString()).version;
     }
 
-    const npmrc = path.resolve(process.env['RUNNER_TEMP'] || process.cwd(), '.npmrc');
+    const npmrc = path.resolve(process.env['HOME'], '.npmrc');
     fs.writeFileSync(npmrc, `//registry.npmjs.org/:_authToken=${process.env.NPM_AUTH_TOKEN}`, { flag: 'w+' });
 
     await tools.exec('git', ['config', 'user.name', '"Automated Release"']);
