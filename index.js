@@ -1,12 +1,19 @@
 const { Toolkit } = require('actions-toolkit');
+import fs from 'fs';
+import path from 'path'
 
 
 Toolkit.run(async tools => {
+    function getVersion() {
+        const data = fs.readFileSync(path.join(tools.workspace, 'package.json'));
+
+        return JSON.parse(data.toString()).version;
+    }
+
     await tools.exec('git', ['config', 'user.name', '"Automated Release"']);
     await tools.exec('git', ['config', 'user.email', '"gh-action-autopublish@users.noreply.github.com"']);
 
-    const pkg = tools.getPackageJSON();
-    const currentVersion = pkg.version.toString();
+    const currentVersion = getVersion();
     let tagExists;
 
     try {
@@ -25,8 +32,8 @@ Toolkit.run(async tools => {
     }
 
     await tools.exec('git push origin master');
-    await tools.exec(`git push origin v${tools.getPackageJSON().version.toString()}`);
-    await tools.exec('npm publish');
+    await tools.exec(`git push origin v${getVersion}`);
+    await tools.exec('npm publish --access public');
 
     tools.exit.success('Done!!')
 }, { event: 'push' });
