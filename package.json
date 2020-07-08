@@ -1,9 +1,9 @@
 {
-  "name": "gh-action-autopublish",
+  "name": "@jitsi/gh-action-autopublish",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/saghul/gh-action-autopublish.git"
+    "url": "git+https://github.com/jitsi/gh-action-autopublish.git"
   },
   "license": "ISC",
   "private": true,
