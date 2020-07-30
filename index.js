@@ -13,6 +13,8 @@ Toolkit.run(async tools => {
     const npmrc = path.resolve(process.env['HOME'], '.npmrc');
     fs.writeFileSync(npmrc, `//registry.npmjs.org/:_authToken=${process.env.NPM_AUTH_TOKEN}`, { flag: 'w+' });
 
+    await tools.exec('npm config set unsafe-perm true')
+
     await tools.exec('git', ['config', 'user.name', '"Automated Release"']);
     await tools.exec('git', ['config', 'user.email', '"gh-action-autopublish@users.noreply.github.com"']);
 
@@ -37,6 +39,7 @@ Toolkit.run(async tools => {
     await tools.exec('git push origin master');
     await tools.exec(`git push origin v${getVersion()}`);
     await tools.exec('npm whoami');
+    await tools.exec('npm install');
     await tools.exec('npm publish --access public');
 
     tools.exit.success('Done!!')
